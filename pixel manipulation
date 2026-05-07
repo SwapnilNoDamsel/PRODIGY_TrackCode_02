@@ -1,0 +1,20 @@
+from PIL import Image
+import numpy as np
+
+def encrypt_decrypt_image(input_path, output_path, key):
+    
+    img = Image.open(input_path).convert('RGB')
+    img_array = np.array(img)
+
+    
+    processed_array = np.bitwise_xor(img_array, key).astype(np.uint8)
+
+    
+    processed_img = Image.fromarray(processed_array)
+    processed_img.save(output_path)
+    print(f"Image saved as {output_path}")
+
+
+encrypt_decrypt_image("nature.jpg", "nature_encrypted.png", 42)
+
+encrypt_decrypt_image("nature_encrypted.png", "nature_decrypted.png", 42)
